@@ -1,14 +1,18 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-const DEST_LAT = 43.0731;
-const DEST_LNG = -89.4012;
+let destination = "Madison, WI";
 const RANGE = 20;
 const NUM_RESULTS = 30;
 
-let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${DEST_LAT}&lon=${DEST_LNG}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
+// This flag designates whether using local test data or burning an API call
+let useTestData = true;
+
+// Warning about fake data
+alert("This is currently only pulling internal test data an not using an API call (those are expensive).");
+console.log(testData);
 
 // Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
-	// Create string for locations query parameter of MapQuest API from Documenu results JSON
+	// Create a string for locations query parameter of MapQuest API from Documenu results JSON
 	let locString = "";
 	for (let i = 0; i < data.length; i++) {
 		locString = locString.concat(data[i].geo.lat, ",", data[i].geo.lon);
@@ -16,7 +20,6 @@ let createMap = (data) => {
 			locString = locString.concat("||");
 		}
 	}
-	// console.log(locString);
 
 	// MapQuest Static Map API string
 	let staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
@@ -29,23 +32,75 @@ let createMap = (data) => {
 };
 
 // Documenu API call
-fetch(documenuAPI, {
-	method: "GET",
-	headers: {
-		"x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34",
-		"x-rapidapi-host": "documenu.p.rapidapi.com",
-		"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
-	},
-})
-	.then((response) => {
-		if (response.ok) {
-			response.json().then((data) => {
-				createMap(data.data);
-
-				console.log(data.data);
+let getTacoSpots = (lat, lng) => {
+	if (useTestData) {
+		createMap(testData);
+	} else {
+		console.log(lat, lng);
+		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
+		fetch(documenuAPI, {
+			method: "GET",
+			headers: {
+				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
+				// "x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
+				"x-rapidapi-host": "documenu.p.rapidapi.com",
+				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
+			},
+		})
+			.then((response) => {
+				if (response.ok) {
+					response.json().then((data) => {
+						createMap(data.data);
+						console.log("You burned an API call!");
+						console.log(data.data);
+					});
+				}
+			})
+			.catch((err) => {
+				console.error(err);
 			});
-		}
-	})
-	.catch((err) => {
-		console.error(err);
-	});
+	}
+};
+
+// Make nested API calls to get weather data
+let getSearchCoords = (dest) => {
+	// Clear value from input field
+	// destinationInputEl.value = "";
+
+	// API call to Mapquest to get latitude and longitude from generic place name
+	let latLngSearchApiUrl = `https://open.mapquestapi.com/geocoding/v1/address?key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc&location=${dest}`;
+	fetch(latLngSearchApiUrl)
+		.then((resp1) => {
+			if (resp1.ok) {
+				resp1.json().then((geoData) => {
+					// Extract data from first result
+					let lat = geoData.results[0].locations[0].latLng.lat;
+					let lng = geoData.results[0].locations[0].latLng.lng;
+					let city = geoData.results[0].locations[0].adminArea5;
+					let state = geoData.results[0].locations[0].adminArea3;
+					let country = geoData.results[0].locations[0].adminArea1;
+
+					// Check that destination is specific enough to return a city, state and country identifier
+					if (!city || !state || !country) {
+						alert(
+							"Your destination search may be too broad. Please enter more specific location information for results."
+						);
+					} else {
+						// Create a city, state, country string for display and search history purposes
+						let destinationStr = `${city}, ${state} ${country}`;
+
+						// API call to Documenu using latitude and longitude
+						getTacoSpots(lat, lng);
+					}
+				});
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+			alert(
+				"There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes."
+			);
+		});
+};
+
+getSearchCoords(destination);
