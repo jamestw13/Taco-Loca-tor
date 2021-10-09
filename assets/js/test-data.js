@@ -1,4 +1,4 @@
-let testData = [
+/** let testData = [
 	{
 		restaurant_name: "La Mestiza",
 		restaurant_phone: "(608) 826-0178",
@@ -8528,4 +8528,4 @@ let testData = [
 		],
 		last_updated: "2020-12-24T17:47:58.320Z",
 	},
-];
+]; **/

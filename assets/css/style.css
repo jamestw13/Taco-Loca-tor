@@ -58,3 +58,11 @@ a1 {
   font-family: 'Acme', sans-serif;
 
 }
+
+.map {
+  border: solid 3px black ;
+  border-radius: .5rem;
+  display:flex;
+  height: 600px;
+  margin:auto;
+}

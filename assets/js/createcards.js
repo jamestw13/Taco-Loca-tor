@@ -29,9 +29,15 @@ testDataChicago = {
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
-
+  let destination = document.getElementById("locale").value;
+  getSearchCoords(destination);
+  console.log(destination);
   var restaurant_name = testDataChicago.restaurant_name;
   var price_range = testDataChicago.price_range;
+
+  //Create for loop to iterate through fetch call 5 times 
+  // Parse data into the cards
+
 
   // create a card
   var newEl = document.createElement("a1");
@@ -63,13 +69,6 @@ var formSubmitHandler = function (event) {
     img.classList = "image";
     //console.log(price_range);
     newEl.appendChild(img);
-  
-
-
-
-
-
-
 
 }
 

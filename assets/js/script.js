@@ -1,10 +1,11 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-let destination = "Chicago, IL";
+//let destination = document.getElementById("locale").value;
+//console.log(destination);
 const RANGE = 20;
-const NUM_RESULTS = 30;
+const NUM_RESULTS = 5;
 
 // This flag designates whether using local test data or burning an API call
-let useTestData = true;
+let useTestData = false;
 
 // Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
@@ -14,15 +15,19 @@ let createMap = (data) => {
 	} else {
 		// Create a string for locations query parameter of MapQuest API from Documenu results JSON
 		let locString = "";
+		console.log(data);
 		for (let i = 0; i < data.length; i++) {
 			locString = locString.concat(data[i].geo.lat, ",", data[i].geo.lon);
+			console.log(locString);
 			if (i < data.length - 1) {
 				locString = locString.concat("||");
+				console.log(locString);
+			
 			}
 		}
-
+		
 		// MapQuest Static Map API string
-		staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&defaultMarker=marker-sm-num&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
+			staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&defaultMarker=marker-sm-num&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
 	}
 
 	// Add static map api string to HTML img tag
@@ -39,12 +44,12 @@ let getTacoSpots = (lat, lng) => {
 		createMap(testData);
 	} else {
 		console.log(lat, lng);
-		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
+		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=1&fullmenu=true&cuisine=Mexican`;
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
 				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
-				"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
+				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
@@ -52,6 +57,7 @@ let getTacoSpots = (lat, lng) => {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((data) => {
+						console.log(data);
 						createMap(data.data);
 						console.log("You burned an API call!");
 						console.log(data.data);
@@ -83,6 +89,7 @@ let getSearchCoords = (dest) => {
 				if (resp1.ok) {
 					resp1.json().then((geoData) => {
 						// Extract data from first result
+						console.log(geoData);
 						let lat = geoData.results[0].locations[0].latLng.lat;
 						let lng = geoData.results[0].locations[0].latLng.lng;
 						let city = geoData.results[0].locations[0].adminArea5;
@@ -114,4 +121,4 @@ let getSearchCoords = (dest) => {
 };
 
 
-getSearchCoords(destination);
+
