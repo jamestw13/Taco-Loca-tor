@@ -5,22 +5,24 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>TACO-LOCA-TOR</title>
 	<!-- Foundation 6 CSS CDN -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
 		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous" />
-
-
 	<link rel="stylesheet" href="assets/css/style.css" />
+	<title>TACO-LOCA-TOR</title>
+
 
 </head>
 
-<body>
+<body class="body" style="background-image: url('assets/images/background.jpg');">
 	<header class="hero">
 
 		<h1 class="text-center">TACO-LOCATOR</h1>
 		</div>
-		<p class="text-center">Let Us Take You To Your Tacos!</p>
+		<!--<p class="text-center">Let Us Take You To Your Tacos!</p>-->
 
 		<nav>
 			<ul class="menu align-right">
@@ -32,33 +34,39 @@
 			</ul>
 		</nav>
 	</header>
-
-	<div class="grid-x grid-padding-x">
+<main>
+	<div class="form-cards grid-x grid-padding-x">
 		<form id="locale-form" class="form small-6 cell">
 			<label class="form-label" for="locale">Where are you?</label>
 			<input name="locale" id="locale" type="text" autofocus="true" class="form-input" />
-			<button type="submit" class="button">Find Tacos!</button>
-			<h4 class="" id="rest-cards">Restaurants</h4>
+			<button type="submit" class="button">FIND TACOS</button>
+			<h4 class="rest-cards" id="rest-cards">Restaurants</h4>
 		</form>
-		
+		<div class="quote small-6 cell">Live everyday like it's Taco Tuesday
+		</div>
 	</div>
 	<div>
-		
+
 		<div class="main grid-x">
-			<div id="card-container" class="small-6 cell">
 
-
-			</div>
+			<div class="cardEl small-6 cell">
+		
+			<div id="card-container" class="small-2 cell">
+			</div>	
+		</div>
 			<div class="small-6 cell">
 				<img id="map" />
 			</div>
 		</div>
 	</div>
-
+</main>
 	<footer></footer>
+
+
 	<script src="./assets/js/test-data.js"></script>
-	<script src="./assets/js/script.js"></script>
 	<script src="assets/js/createcards.js"></script>
+	<script src="./assets/js/script.js"></script>
+
 </body>
 
 </html>
