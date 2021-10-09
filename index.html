@@ -1,44 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>TACO-LOCA-TOR</title>
-		<!-- Foundation 6 CSS CDN -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
-			integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
-			crossorigin="anonymous"
-		/>
 
-		<link rel="stylesheet" href="assets/css/style.css" />
-	</head>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>TACO-LOCA-TOR</title>
+	<!-- Foundation 6 CSS CDN -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous" />
 
-	<body>
-    <header>
 
-      <h1 class="text-center">TACO-LOCATOR</h1></div>
-      <nav >
-        <ul class="menu align-right">
-          <li><a href="">item1</a></li>
-          <li><a href="">item2</a></li>
-          <li><a href="">item3</a></li>
-          <li><a href="">item4</a></li>
-          <li><a href="">item5</a></li>
-        </ul>
-      </nav>
-    </header>
+	<link rel="stylesheet" href="assets/css/style.css" />
 
+</head>
+
+<body>
+	<header class="hero">
+
+		<h1 class="text-center">TACO-LOCATOR</h1>
+		</div>
+		<p class="text-center">Let Us Take You To Your Tacos!</p>
+
+		<nav>
+			<ul class="menu align-right">
+				<li><a href="">item1</a></li>
+				<li><a href="">item2</a></li>
+				<li><a href="">item3</a></li>
+				<li><a href="">item4</a></li>
+				<li><a href="">item5</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="grid-x grid-padding-x">
+		<form id="locale-form" class="form small-6 cell">
+			<label class="form-label" for="locale">Where are you?</label>
+			<input name="locale" id="locale" type="text" autofocus="true" class="form-input" />
+			<button type="submit" class="button">Find Tacos!</button>
+			<h4 class="" id="rest-cards">Restaurants</h4>
+		</form>
+		
+	</div>
+	<div>
+		
 		<div class="main grid-x">
-			<div id="card-container" class="small-6 cell">Container for Cards</div>
+			<div id="card-container" class="small-6 cell">
+
+
+			</div>
 			<div class="small-6 cell">
 				<img id="map" />
 			</div>
 		</div>
-		<footer></footer>
-		<script src="./assets/js/test-data.js"></script>
-		<script src="./assets/js/script.js"></script>
-	</body>
+	</div>
+
+	<footer></footer>
+	<script src="./assets/js/test-data.js"></script>
+	<script src="./assets/js/script.js"></script>
+	<script src="assets/js/createcards.js"></script>
+</body>
+
 </html>

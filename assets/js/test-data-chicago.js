@@ -14,6 +14,7 @@ testDataChicago = {
 		street: "Location Varies",
 		formatted: "Location Varies Chicago, IL 60612",
 	},
+	
 	geo: {
 		lat: 41.882766,
 		lon: -87.636707,

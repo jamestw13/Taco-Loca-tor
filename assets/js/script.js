@@ -113,4 +113,5 @@ let getSearchCoords = (dest) => {
 	}
 };
 
+
 getSearchCoords(destination);
