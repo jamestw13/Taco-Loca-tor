@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TACO-LOCA-TOR</title>
-  <!-- Foundation 6 CSS CDN -->
-  <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
-  integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
-  crossorigin="anonymous"
-  />
-  
-  <link rel="stylesheet" href="assets/css/style.css" />
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TACO-LOCA-TOR</title>
 
-<body>
-  <header>
-    
-    <h1 class="text-center">TACO-LOCATOR</h1></div>
-    <nav>
-      <ul class="menu dropdown align-right" data-dropdown-menu>
-        <li >
-          <a href="#">Search History</a>
-          <ul class="menu">
-            <li><a href="#">history 1</a></li>
-            <li><a href="#">history 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
-  
-  <div class="main grid-x">
-    <div id="card-container" class="small-6 cell">Container for Cards</div>
-    <div class="small-6 cell">
-      <img id="map" />
-    </div>
-  </div>
-  <footer></footer>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <!-- Compressed JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
-  <script src="./assets/js/test-data.js"></script>
-  <script src="./assets/js/script.js"></script>
-</body>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+			integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+			crossorigin="anonymous"
+		/>
+
+		<link rel="stylesheet" href="assets/css/style.css" />
+	</head>
+
+	<body>
+		<header>
+
+				<h1 >TACO-LOCATOR</h1>
+				<div>
+					<input type="text" id="input" placeholder="From where to find a Taco?" />
+					<button>FEED ME TACOS NOW</button>
+				</div>
+			</div>
+
+			<!-- Dropdown Structure -->
+
+			<nav>
+				<div class="pure-menu pure-menu-horizontal">
+					<ul class="pure-menu-list">
+						<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+							<h3 id="menuLink1" class="pure-menu-link">Search History</h3>
+							<ul id="searchDropdown" class="pure-menu-children">
+								<li class="pure-menu-item">
+									<a href="#" class="pure-menu-link">Previous Search</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<div class="pure-g">
+			<div id="card-container" class="pure-u-1-2">Container for Cards</div>
+			<div class="pure-u-1-2">
+				<img id="map" />
+			</div>
+		</div>
+		<footer></footer>
+
+		<script src="./assets/js/test-data.js"></script>
+		<script src="./assets/js/script.js"></script>
+	</body>
 </html>
