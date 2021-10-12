@@ -33,8 +33,7 @@ tacoSearchFormEl.addEventListener("submit", searchSubmitHandler);
 // Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
 	let staticMapAPI;
-	console.dir(data);
-	if (useMapQuestTestData) {
+	if (useTestData) {
 		staticMapAPI = "./assets/images/Test Data Map";
 	} else {
 		// Create a string for locations query parameter of MapQuest API from Documenu results JSON
@@ -45,7 +44,7 @@ let createMap = (data) => {
 				locString = locString.concat("||");
 			}
 		}
-		console.log(locString);
+
 		// MapQuest Static Map API string
 		staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&defaultMarker=marker-sm-num&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
 	}
@@ -186,5 +185,29 @@ let loadLocalStorage = () => {
 /* Search History Functions End */
 
 loadLocalStorage();
-
 // getSearchCoords(destination);
+
+// Make it so searches save to local storage
+
+function myFunction() {
+	// Declare variables
+	var input, filter, ul, li, a, i, txtValue;
+	input = document.getElementById("myInput");
+	filter = input.value.toUpperCase();
+	ul = document.getElementById("myUL");
+	li = ul.getElementsByTagName("li");
+
+	// Loop through all list items, and hide those who don't match the search query
+	for (i = 0; i < li.length; i++) {
+		a = li[i].getElementsByTagName("a")[0];
+		txtValue = a.textContent || a.innerText;
+		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		} else {
+			li[i].style.display = "none";
+		}
+	}
+}
+
+// Make it so search history tab opens a dropdown list
+// Make it so dropdown list is populated by localStorage
