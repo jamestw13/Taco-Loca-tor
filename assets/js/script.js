@@ -2,6 +2,10 @@
 let destination = "Chicago, IL";
 const RANGE = 20;
 const NUM_RESULTS = 30;
+let savedSearches = [];
+
+// HTML Elements
+let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
 
 // This flag designates whether using local test data or burning an API call
 let useTestData = true;
@@ -64,6 +68,28 @@ let getTacoSpots = (lat, lng) => {
   }
 };
 
+let updateSearchHistoryElements = () => {
+	// Clear previous search items
+	searchHistoryDropdownEl.innerHTML = "";
+
+	// Loop over searchSavedSearches
+	for (let item in savedSearches) {
+		// Make the search button
+		let searchButton = document.createElement("button");
+		searchButton.setAttribute("class", "pure-menu-link");
+		searchButton.setAttribute("data-search", savedSearches[item]);
+		searchButton.innerHTML = savedSearches[item];
+
+		// Make list item
+		let listItem = document.createElement("li");
+		listItem.setAttribute("class", "pure-menu-item");
+
+		// Add list item to dropdown menu
+		listItem.appendChild(searchButton);
+		searchHistoryDropdownEl.appendChild(listItem);
+	}
+};
+
 // Make nested API calls to get weather data
 let getSearchCoords = (dest) => {
   // Clear value from input field
@@ -100,21 +126,43 @@ let getSearchCoords = (dest) => {
               // Create a city, state, country string for display and search history purposes
               let destinationStr = `${city}, ${state} ${country}`;
 
-              // API call to Documenu using latitude and longitude
-              getTacoSpots(lat, lng);
-            }
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(
-          "There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes."
-        );
-      });
-  }
+							// API call to Documenu using latitude and longitude
+							getTacoSpots(lat, lng);
+
+							savedSearches.unshift(destinationStr);
+							savedSearches = [...new Set(savedSearches)];
+
+							while (savedSearches > 5) {
+								savedSearches.pop;
+							}
+
+							updateSearchHistory();
+
+							localStorage.setItem("tacoSearches", JSON.stringify(savedSearches));
+						}
+					});
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				alert(
+					"There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes."
+				);
+			});
+	}
+
 };
 
+let loadLocalStorage = () => {
+	// If there are searches in local storage, pull them into savedSearches
+	let storedSearches = localStorage.getItem("tacoSearches");
+	if (storedSearches) {
+		savedSearches = JSON.parse(storedSearches);
+	}
+	updateSearchHistoryElements();
+};
+
+loadLocalStorage();
 getSearchCoords(destination);
 
 // Make it so searches save to local storage
