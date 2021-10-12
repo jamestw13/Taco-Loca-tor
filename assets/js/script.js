@@ -3,7 +3,6 @@
 /* Global Variables */
 
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-// let destination = "Chicago, IL";
 const RANGE = 20;
 const NUM_RESULTS = 30;
 let savedSearches = [];
@@ -16,6 +15,8 @@ let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
 // This flag designates whether using local test data or burning an API call
 let useDocumenuTestData = true;
 let useMapQuestTestData = true;
+
+/* Event Handlers */
 
 let searchSubmitHandler = (event) => {
 	event.preventDefault();
@@ -30,10 +31,19 @@ let searchSubmitHandler = (event) => {
 };
 tacoSearchFormEl.addEventListener("submit", searchSubmitHandler);
 
+let historyClickHandler = (event) => {
+	let location = event.target.getAttribute("data-search");
+	console.log(event.target.getAttribute("data-search"));
+	getSearchCoords(location);
+};
+
+searchHistoryDropdownEl.addEventListener("click", historyClickHandler);
+/* Main Functions */
+
 // Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
 	let staticMapAPI;
-	if (useTestData) {
+	if (useMapQuestTestData) {
 		staticMapAPI = "./assets/images/Test Data Map";
 	} else {
 		// Create a string for locations query parameter of MapQuest API from Documenu results JSON
@@ -88,10 +98,23 @@ let getTacoSpots = (lat, lng) => {
 	}
 };
 
+let saveSearch = (locationStr) => {
+	savedSearches.unshift(locationStr);
+	savedSearches = [...new Set(savedSearches)];
+
+	while (savedSearches > 5) {
+		savedSearches.pop;
+	}
+
+	updateSearchHistoryElements();
+
+	localStorage.setItem("tacoSearches", JSON.stringify(savedSearches));
+};
+
 // Make nested API calls to get weather data
 let getSearchCoords = (loc) => {
 	// Clear value from input field
-	// destinationInputEl.value = "";
+	searchInputEl.value = "";
 
 	if (useMapQuestTestData) {
 		// Warning about fake data
@@ -99,6 +122,7 @@ let getSearchCoords = (loc) => {
 		console.log(testData);
 
 		getTacoSpots("", "");
+		saveSearch(loc);
 	} else {
 		// API call to Mapquest to get latitude and longitude from generic place name
 		let latLngSearchApiUrl = `https://open.mapquestapi.com/geocoding/v1/address?key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc&location=${loc}`;
@@ -126,17 +150,7 @@ let getSearchCoords = (loc) => {
 
 							// API call to Documenu using latitude and longitude
 							getTacoSpots(lat, lng);
-
-							savedSearches.unshift(locationStr);
-							savedSearches = [...new Set(savedSearches)];
-
-							while (savedSearches > 5) {
-								savedSearches.pop;
-							}
-
-							updateSearchHistoryElements();
-
-							localStorage.setItem("tacoSearches", JSON.stringify(savedSearches));
+							saveSearch(locationStr);
 						}
 					});
 				}
