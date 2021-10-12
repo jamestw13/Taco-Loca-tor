@@ -2,14 +2,31 @@
 //let destination = document.getElementById("locale").value;
 //console.log(destination);
 const RANGE = 20;
-const NUM_RESULTS = 5;
+const NUM_RESULTS = 20;
 
 let tacos = [
   'assets/images/taco1.jpg',
   'assets/images/taco2.jpg',
   'assets/images/taco3.jpg',
   'assets/images/taco4.jpg',
-  'assets/images/taco5.jpg'
+  'assets/images/taco5.jpg',
+	'assets/images/taco6.jpg',
+  'assets/images/taco7.jpg',
+  'assets/images/taco8.jpg',
+  'assets/images/taco9.jpg',
+  'assets/images/taco10.jpg',
+	'assets/images/taco11.jpg',
+  'assets/images/taco12.jpg',
+  'assets/images/taco13.jpg',
+  'assets/images/taco14.jpg',
+  'assets/images/taco15.jpg',
+	'assets/images/taco16.jpg',
+  'assets/images/taco17.jpg',
+  'assets/images/taco18.jpg',
+  'assets/images/taco19.jpg',
+  'assets/images/taco20.jpg'
+	
+
 ]
 
 // This flag designates whether using local test data or burning an API call
