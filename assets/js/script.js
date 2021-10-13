@@ -160,8 +160,13 @@ let getTacoSpots = (lat, lng) => {
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
+
+				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
+				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
+
 				// "x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
-				"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
+				//"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
+
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
