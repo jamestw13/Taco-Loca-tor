@@ -3,27 +3,27 @@
 /* GLOBAL VARIABLES START */
 
 let tacos = [
-  'assets/images/taco1.jpg',
-  'assets/images/taco2.jpg',
-  'assets/images/taco3.jpg',
-  'assets/images/taco4.jpg',
-  'assets/images/taco5.jpg',
-	'assets/images/taco6.jpg',
-  'assets/images/taco7.jpg',
-  'assets/images/taco8.jpg',
-  'assets/images/taco9.jpg',
-  'assets/images/taco10.jpg',
-	'assets/images/taco11.jpg',
-  'assets/images/taco12.jpg',
-  'assets/images/taco13.jpg',
-  'assets/images/taco14.jpg',
-  'assets/images/taco15.jpg',
-	'assets/images/taco16.jpg',
-  'assets/images/taco17.jpg',
-  'assets/images/taco18.jpg',
-  'assets/images/taco19.jpg',
-  'assets/images/taco20.jpg'
-]
+	"assets/images/taco1.jpg",
+	"assets/images/taco2.jpg",
+	"assets/images/taco3.jpg",
+	"assets/images/taco4.jpg",
+	"assets/images/taco5.jpg",
+	"assets/images/taco6.jpg",
+	"assets/images/taco7.jpg",
+	"assets/images/taco8.jpg",
+	"assets/images/taco9.jpg",
+	"assets/images/taco10.jpg",
+	"assets/images/taco11.jpg",
+	"assets/images/taco12.jpg",
+	"assets/images/taco13.jpg",
+	"assets/images/taco14.jpg",
+	"assets/images/taco15.jpg",
+	"assets/images/taco16.jpg",
+	"assets/images/taco17.jpg",
+	"assets/images/taco18.jpg",
+	"assets/images/taco19.jpg",
+	"assets/images/taco20.jpg",
+];
 
 const RANGE = 20;
 const NUM_RESULTS = 30;
@@ -92,12 +92,11 @@ let createMap = (data) => {
 			if (i < data.length - 1) {
 				locString = locString.concat("||");
 				console.log(locString);
-			
 			}
 		}
-		
+
 		// MapQuest Static Map API string
-			staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&defaultMarker=marker-sm-num&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
+		staticMapAPI = `https://open.mapquestapi.com/staticmap/v5/map?locations=${locString}&defaultMarker=marker-sm-num&size=@2x&key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc`;
 	}
 
 	// Add static map api string to HTML img tag
@@ -107,13 +106,54 @@ let createMap = (data) => {
 	//TODO Error handling for API errors
 };
 
+// Create and display result cards
+let createCards = (data) => {
+	console.log("I got this far", data);
+	// for loop to create 5 cards
+	for (let i = 0; i < 5; i++) {
+		let rName = data[i].restaurant_name;
+		let pRange = data[i].price_range;
+
+		// create a card
+		var newEl = document.createElement("a1");
+		newEl.classList = "card";
+		document.getElementById("card-container").appendChild(newEl);
+		// create a span element to hold restaurant name
+		let resName = document.createElement("span");
+		resName.classList = "form-cards";
+		resName.textContent = rName;
+
+		//console.log(restaurant_name)
+		// append to card
+		newEl.appendChild(resName);
+
+		let price = document.createElement("span");
+		price.textContent = pRange;
+		//console.log(price_range);
+		newEl.appendChild(price);
+
+		//create image element
+
+		let img = document.createElement("img");
+		//const random = Math.floor(Math.random()* tacos.length);
+		//img.src = tacos[random]
+		img.src = tacos[0];
+		tacos.shift();
+
+		img.classList = "image";
+		//console.log(price_range);
+		newEl.appendChild(img);
+	}
+};
+
 // Documenu API call
 let getTacoSpots = (lat, lng) => {
 	// If testing
 	if (useDocumenuTestData) {
-		createMap(testDataChicago);
+		createMap(testData);
+		createCards(testData);
+		console.log(testData);
 	} else {
-
 		// If not testing
 		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
 		// API Call
@@ -129,48 +169,11 @@ let getTacoSpots = (lat, lng) => {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((data) => {
-
 						// Create map from the returned data
 						createMap(data.data);
+						createCards(data.data);
 						console.log("You burned an API call!");
 						console.log(data.data);
-				
-						// for loop to create 5 cards
-						for (let i = 0; i < 5; i++) {
-						let rName = data.data[i].restaurant_name;
-						let pRange = data.data[i].price_range;
-						
-						// create a card
-						var newEl = document.createElement("a1");
-						newEl.classList = "card";
-						document.getElementById("card-container").appendChild(newEl);
-						// create a span element to hold restaurant name
-						let resName = document.createElement("span");
-						resName.classList = "form-cards"
-						resName.textContent = rName;
-					
-						//console.log(restaurant_name)
-						// append to card
-						newEl.appendChild(resName);
-					
-						let price = document.createElement("span");
-						price.textContent = pRange;
-						//console.log(price_range);
-						newEl.appendChild(price);
-					
-						//create image element
-					
-							
-							let img = document.createElement("img");
-							//const random = Math.floor(Math.random()* tacos.length); 
-							//img.src = tacos[random]
-							img.src = tacos[0];
-							tacos.shift();
-					
-							img.classList = "image";
-							//console.log(price_range);
-							newEl.appendChild(img);
-						}
 					});
 				}
 			})
