@@ -2,73 +2,78 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<!-- Foundation 6 CSS CDN -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <!-- GoogleFont -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+	<!-- Foundation 6 CSS CDN -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
 		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous" />
-	<link rel="stylesheet" href="assets/css/style.css" />
+  -->
+
 	<title>TACO-LOCA-TOR</title>
-
-
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+  integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+  crossorigin="anonymous"
+  />
+  
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body class="body" style="background-image: url('assets/images/background2.jpg'); background-size: 100%;">
-	<header class="hero">
-
-		<h1 class="text-center">TACO-LOCATOR</h1>
-		</div>
-		<!--<p class="text-center">Let Us Take You To Your Tacos!</p>-->
-
-		<nav>
-			<ul class="menu align-right">
-				<li><a href="">item1</a></li>
-				<li><a href="">item2</a></li>
-				<li><a href="">item3</a></li>
-				<li><a href="">item4</a></li>
-				<li><a href="">item5</a></li>
-			</ul>
-		</nav>
-	</header>
-	<main>
-		<div class="form-cards grid-x grid-padding-x">
+  <header class="hero">
+    
+    <h1 >TACO-LOCATOR</h1>
+    <h2 class="quote small-6 cell">Live everyday like it's Taco Tuesday</h2>
+    <form action="submit" id="tacoSearchForm" class="pure-form pure-form-stacked">
+      <fieldset>
+        <legend>Where are you?</legend>
+        <input type="text" id="input" class="pure-input-1" placeholder="From where to find a Taco?" />
+        <button class="pure-button pure-button-primary">FEED ME TACOS NOW</button>
+        
+        <nav>
+          <div class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <h3 id="menuLink1" class="pure-menu-link">Search History</h3>
+                <ul id="searchDropdown" class="pure-menu-children">
+                  <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Previous Search</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </fieldset>
+    </form>
+    		<div class="form-cards grid-x grid-padding-x">
 			<form id="locale-form" class="form small-6 cell">
 				<label class="form-label" for="locale">Where are you?</label>
 				<input name="locale" id="locale" type="text" autofocus="true" class="form-input" />
 				<button type="submit" class="button">FIND TACOS</button>
 				<h4 class="rest-cards" id="rest-cards">Restaurants</h4>
 			</form>
-			<div class="quote small-6 cell">Live everyday like it's Taco Tuesday
-			</div>
-		</div>
-		<div>
+</div>
+    </div>
+</header>
 
-			<div class="main grid-x">
+<div class="pure-g">
+  <div id="card-container" class="pure-u-1-2">Container for Cards</div>
+  <div class="pure-u-1-2">
+    <img id="map" />
+  </div>
+</div>
+<footer></footer>
 
-				<div class="cardEl small-6 cell">
-
-					<div id="card-container" class="small-2 cell">
-					</div>
-				</div>
-				<div class="small-6 cell">
-					<img id="map" class="map" />
-				</div>
-			</div>
-		</div>
-	</main>
-	<footer></footer>
-
-
-	<!--<script src="./assets/js/test-data.js"></script>-->
-	
-	<script src="assets/js/createcards.js"></script>
-	<script src="./assets/js/script.js"></script>
-
-
+<!-- <script src="./assets/js/test-data-chicago.js"></script> -->
+<script src="./assets/js/test-data.js"></script>
+<script src="./assets/js/script.js"></script>
 </body>
-
 </html>
