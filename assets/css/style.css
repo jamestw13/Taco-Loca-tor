@@ -1,23 +1,58 @@
+:root {
+	--white: #f2f2f2;
+	--red: #f2594b;
+	--green: #87a646;
+	--brown: #bf6c3b;
+	--yellow: #f2b441;
+}
+
 body {
-	background-image: url("../images/background2.jpg");
+	background-color: var(--red);
+	background-image: url("../images/tiled-taco-background.jpg");
 	background-size: 100%;
 }
 
 h1 {
+	text-align: center;
 	font-family: "Acme", sans-serif;
 	font-weight: bold;
 	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
 }
 
-h4 {
-	font-family: "Acme", sans-serif;
-	text-align: center;
+#quote {
+	display: flex;
+	justify-content: center;
+	font-family: "Festive", cursive;
 	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
+	font-size: 3rem;
+	font-weight: bold;
+	margin: auto;
 }
 
-.card {
-	border: solid 3px black;
+h3 {
+	font-family: "Acme", sans-serif;
+	font-weight: normal;
+}
+
+.hero {
+	display: flex;
+	flex-direction: column;
+	font-family: "Acme", sans-serif;
+	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
+	margin: 20px;
+	padding: 10px;
+	background-color: var(--green);
+}
+
+#nav {
+	/* justify-content: right; */
+}
+
+.border {
+	border: solid 4px var(--red);
 	border-radius: 0.5rem;
+}
+.card {
 	display: flex;
 	text-align: center;
 	padding: 4px;
@@ -41,16 +76,6 @@ h4 {
 	background-color: darkslategray;
 }
 
-.quote {
-	display: flex;
-	justify-content: center;
-	font-family: "Festive", cursive;
-	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
-	font-size: 3rem;
-	font-weight: bold;
-	margin: auto;
-}
-
 .form-cards {
 	font-family: "Acme", sans-serif;
 	font-size: 1.3rem;
@@ -62,17 +87,10 @@ h4 {
 	border-radius: 0.5rem;
 }
 
-.hero {
-	font-family: "Acme", sans-serif;
-	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
-}
-
 .map {
-	border: solid 3px black;
-	border-radius: 0.5rem;
 	display: flex;
 	height: 600px;
 	margin: auto;
-	padding: 4px;
+	/* padding: 4px; */
 	background-color: darkslategray;
 }

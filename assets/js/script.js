@@ -1,35 +1,8 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-//let destination = document.getElementById("locale").value;
-//console.log(destination);
-const RANGE = 20;
-const NUM_RESULTS = 20;
-
-let tacos = [
-	"assets/images/taco1.jpg",
-	"assets/images/taco2.jpg",
-	"assets/images/taco3.jpg",
-	"assets/images/taco4.jpg",
-	"assets/images/taco5.jpg",
-	"assets/images/taco6.jpg",
-	"assets/images/taco7.jpg",
-	"assets/images/taco8.jpg",
-	"assets/images/taco9.jpg",
-	"assets/images/taco10.jpg",
-	"assets/images/taco11.jpg",
-	"assets/images/taco12.jpg",
-	"assets/images/taco13.jpg",
-	"assets/images/taco14.jpg",
-	"assets/images/taco15.jpg",
-	"assets/images/taco16.jpg",
-	"assets/images/taco17.jpg",
-	"assets/images/taco18.jpg",
-	"assets/images/taco19.jpg",
-	"assets/images/taco20.jpg",
-];
-
 const RANGE = 20;
 const NUM_RESULTS = 5;
 const NUM_SEARCH_HISTORY = 8;
+const NUM_TACO_IMAGES = 19;
 let savedSearches = [];
 
 // HTML Elements
@@ -75,7 +48,7 @@ searchHistoryDropdownEl.addEventListener("click", historyClickHandler);
 /* EVENT HANDLERS END */
 /* MAIN FUNCTIONS START */
 
-// Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
+// Create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
 	// If testing
 	if (useMapQuestTestData) {
@@ -105,7 +78,7 @@ let createMap = (data) => {
 	mapImgEl = document.querySelector("#map");
 	mapImgEl.setAttribute("src", staticMapAPI);
 	mapImgEl.setAttribute("alt", "Map of taco locations nearby");
-	mapImgEl.setAttribute("class", "map");
+	mapImgEl.setAttribute("class", "map border");
 	//TODO Error handling for API errors
 };
 
@@ -118,7 +91,7 @@ let createCards = (data) => {
 
 		// create a card
 		var newEl = document.createElement("div");
-		newEl.classList = "card pure-u-1-2 pure-u-md-1-1";
+		newEl.classList = "card pure-u-1-2 pure-u-md-1-1 border";
 		document.getElementById("card-container").appendChild(newEl);
 
 		// create a span element to hold restaurant name
@@ -138,9 +111,10 @@ let createCards = (data) => {
 		//create image element
 
 		let img = document.createElement("img");
-		//const random = Math.floor(Math.random()* tacos.length);
-		//img.src = tacos[random]
-		img.src = tacos[i];
+		const random = Math.floor(Math.random() * NUM_TACO_IMAGES);
+		img.src = `./assets/images/taco${random}.jpg`;
+		img.alt = "Delicious tacos";
+		// img.src = tacos[i];
 		// tacos.shift();
 
 		img.classList = "image";
@@ -153,8 +127,8 @@ let createCards = (data) => {
 let getTacoSpots = (lat, lng) => {
 	// If testing
 	if (useDocumenuTestData) {
-		createMap(testData);
 		createCards(testData);
+		createMap(testData);
 		console.log(testData);
 	} else {
 		// If not testing
@@ -192,6 +166,7 @@ let getTacoSpots = (lat, lng) => {
 
 // Save search history
 let saveSearch = (locationStr) => {
+	locationStr = locationStr.toUpperCase();
 	// Add location to the saved searches array
 	savedSearches.unshift(locationStr);
 	// Create a set so there aren't duplicates
