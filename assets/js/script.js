@@ -2,14 +2,29 @@
 //let destination = document.getElementById("locale").value;
 //console.log(destination);
 const RANGE = 20;
-const NUM_RESULTS = 5;
+const NUM_RESULTS = 20;
 
 let tacos = [
   'assets/images/taco1.jpg',
   'assets/images/taco2.jpg',
   'assets/images/taco3.jpg',
   'assets/images/taco4.jpg',
-  'assets/images/taco5.jpg'
+  'assets/images/taco5.jpg',
+	'assets/images/taco6.jpg',
+  'assets/images/taco7.jpg',
+  'assets/images/taco8.jpg',
+  'assets/images/taco9.jpg',
+  'assets/images/taco10.jpg',
+	'assets/images/taco11.jpg',
+  'assets/images/taco12.jpg',
+  'assets/images/taco13.jpg',
+  'assets/images/taco14.jpg',
+  'assets/images/taco15.jpg',
+	'assets/images/taco16.jpg',
+  'assets/images/taco17.jpg',
+  'assets/images/taco18.jpg',
+  'assets/images/taco19.jpg',
+  'assets/images/taco20.jpg'
 ]
 
 // This flag designates whether using local test data or burning an API call
@@ -42,6 +57,7 @@ let createMap = (data) => {
 	mapImgEl = document.querySelector("#map");
 	mapImgEl.setAttribute("src", staticMapAPI);
 	mapImgEl.setAttribute("alt", "Map of taco locations near");
+	mapImgEl.classList="map";
 	//TODO Error handling for API errors
 };
 
@@ -57,7 +73,7 @@ let getTacoSpots = (lat, lng) => {
 			method: "GET",
 			headers: {
 				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
-				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
+				"x-api-key": "99621bf1c22adbf56a65f100a0017928",
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
@@ -70,8 +86,8 @@ let getTacoSpots = (lat, lng) => {
 						console.log("You burned an API call!");
 						console.log(data.data);
 				
-						// for loop to create 5 cards
-						for (let i = 0; i < 5; i++) {
+						// for loop to create 20 cards
+						for (let i = 0; i < 20; i++) {
 						let rName = data.data[i].restaurant_name;
 						let pRange = data.data[i].price_range;
 						
@@ -83,27 +99,22 @@ let getTacoSpots = (lat, lng) => {
 						let resName = document.createElement("span");
 						resName.classList = "form-cards"
 						resName.textContent = rName;
-					
-						//console.log(restaurant_name)
-						// append to card
 						newEl.appendChild(resName);
 					
 						let price = document.createElement("span");
 						price.textContent = pRange;
-						//console.log(price_range);
 						newEl.appendChild(price);
 					
 						//create image element
 					
 							
 							let img = document.createElement("img");
-							//const random = Math.floor(Math.random()* tacos.length); 
-							//img.src = tacos[random]
+							const random = Math.floor(Math.random()* tacos.length); 
+							img.src = tacos[random]
 							img.src = tacos[0];
 							tacos.shift();
 					
 							img.classList = "image";
-							//console.log(price_range);
 							newEl.appendChild(img);
 						}
 					});
