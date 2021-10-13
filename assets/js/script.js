@@ -27,6 +27,16 @@ let tacos = [
   'assets/images/taco20.jpg'
 ]
 
+const RANGE = 20;
+const NUM_RESULTS = 30;
+const NUM_SEARCH_HISTORY = 8;
+let savedSearches = [];
+
+// HTML Elements
+let tacoSearchFormEl = document.querySelector("#tacoSearchForm");
+let searchInputEl = document.querySelector("#input");
+let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
+
 // This flag designates whether using local test data or burning an API call
 let useDocumenuTestData = true;
 let useMapQuestTestData = true;
