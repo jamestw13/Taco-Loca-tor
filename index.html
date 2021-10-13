@@ -42,17 +42,21 @@
 			<!-- Form -->
 			<form action="" id="tacoSearchForm" class="pure-form pure-form-stacked">
 				<fieldset>
-					<input type="text" id="input" class="pure-input-1" placeholder="From where to find a Taco?" />
+					<input type="text" id="input" class="pure-input-1" placeholder="Enter your hungry location" />
 					<div class="pure-g">
-						<button class="pure-u-1-5 pure-button pure-button-primary border">Show me tacos near me!</button>
-						<div class="pure-u-1-5 pure-menu pure-menu-horizontal">
-							<ul class="pure-menu-list">
-								<!-- Search History Dropdown -->
-								<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-									<h3 class="pure-menu-link">Search History</h3>
-									<ul id="searchDropdown" class="pure-menu-children"></ul>
-								</li>
-							</ul>
+						<div class="pure-u-1 pure-u-lg-4-5">
+							<button class="pure-u-1-5 pure-button pure-button-primary border">Show me the tacos!</button>
+						</div>
+						<div class="pure-u-1 pure-u-lg-1-5">
+							<div class="pure-menu pure-menu-horizontal">
+								<ul class="pure-menu-list">
+									<!-- Search History Dropdown -->
+									<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+										<span class="pure-1-5 pure-menu-link">Previous Searches</span>
+										<ul id="searchDropdown" class="pure-menu-children"></ul>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</fieldset>
@@ -62,10 +66,10 @@
 		<!-- RESULT SECTION-->
 		<div id="headline" class="border"></div>
 		<div class="pure-g">
-			<div class="pure-u-1-2">
+			<div class="pure-u-1 pure-u-md-1-2">
 				<div id="card-container" class="pure-g"></div>
 			</div>
-			<div class="pure-u-1-2">
+			<div class="pure-u-1 pure-u-md-1-2">
 				<img id="map" />
 			</div>
 		</div>

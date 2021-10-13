@@ -1,3 +1,5 @@
+/* START UTILITY CSS */
+
 :root {
 	--white: #ffe296;
 	--black: #000000;
@@ -8,15 +10,27 @@
 
 * {
 	box-sizing: border-box;
-	/* border: 1px solid black; */
 }
+
 body {
 	background-color: var(--tertiary);
-	background-size: 100%;
 }
+
+.pure-g [class*="pure-u"] {
+	font-family: "Acme", sans-serif;
+}
+
+.border {
+	border: solid 4px var(--secondary);
+	border-radius: 0.5rem;
+}
+
+/* END UTILITY CSS */
+/* START HEADER CSS */
 
 #title {
 	text-align: center;
+	text-shadow: 3px 3px #b52417;
 	font-family: "Acme", sans-serif;
 	font-weight: bold;
 	font-size: 5rem;
@@ -26,7 +40,7 @@ body {
 	display: flex;
 	justify-content: center;
 	font-family: "Acme", sans-serif;
-
+	text-align: center;
 	font-size: 3rem;
 	font-weight: bold;
 	margin: auto;
@@ -44,38 +58,48 @@ body {
 }
 
 #tacoSearchForm {
-	width: 100%;
+	width: 80%;
 }
 
 #input {
 	border-radius: 0.5rem;
 }
-.pure-menu {
-	display: flex;
-	justify-content: right;
-}
-#buttons {
-	display: flex;
-}
-.pure-menu-link {
-	color: var(--white);
-	background-color: var(--secondary);
-	border-radius: 0.5rem;
-	padding: 4px 12px;
-	font-weight: normal;
-}
+
+/* Pure CSS Customization */
 
 .pure-menu-list {
+	margin: 0;
+	padding: 0;
 	background-color: none;
 }
-.pure-menu-link:hover {
-	background-color: var(--tertiary);
+
+.pure-menu-children {
+	background-color: transparent;
 }
 
-.border {
-	border: solid 4px var(--secondary);
-	border-radius: 0.5rem;
+.pure-menu-link:hover {
+	background-color: var(--tertiary);
+	color: var(--black);
 }
+
+.pure-button,
+.pure-menu-link {
+	font-family: "Acme", sans-serif;
+	font-size: 1.3rem;
+	text-decoration: none;
+	padding: 6px;
+	width: 100%;
+	display: block;
+	margin: 5px;
+	border-radius: 0.5rem;
+	color: var(--white);
+	border: none;
+	outline: none;
+	background-color: var(--secondary);
+}
+
+/* END HEADER CSS */
+/* START RESULTS CSS */
 
 #headline {
 	font-family: "Acme", sans-serif;
@@ -93,22 +117,6 @@ body {
 	padding: 4px;
 	margin: 10px auto;
 	background-color: var(--primary);
-	/* height: 300px;
-	width: 300px; */
-}
-
-.pure-button {
-	font-size: 1.3rem;
-	text-decoration: none;
-	padding: 6px 5px;
-	width: 100%;
-	display: block;
-	margin: 5px 0;
-	border-radius: 0.5rem;
-	color: var(--white);
-	border: none;
-	outline: none;
-	background-color: var(--secondary);
 }
 
 .form-cards {
@@ -128,3 +136,5 @@ body {
 	margin: auto;
 	background-color: var(--primary);
 }
+
+/* END RESULTS CSS */

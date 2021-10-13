@@ -99,7 +99,7 @@ let createCards = (data) => {
 
 		// create a card
 		var newEl = document.createElement("div");
-		newEl.classList = "card pure-u-10-24 border";
+		newEl.classList = "card-u-1-1 card pure-u-md-11-24 border";
 		document.getElementById("card-container").appendChild(newEl);
 
 		// create and append an h4 element to hold restaurant name
