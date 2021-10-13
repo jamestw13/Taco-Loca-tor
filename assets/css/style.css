@@ -1,68 +1,78 @@
+body {
+	background-image: url("../images/background2.jpg");
+	background-size: 100%;
+}
+
+h1 {
+	font-family: "Acme", sans-serif;
+	font-weight: bold;
+	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
+}
 
 h4 {
-  font-family: 'Acme', sans-serif;
-  text-align: center;
-}
-h1 {
-  font-family: 'Acme', sans-serif;
-  font-weight: bold;
-  
-}
-a1 {
-  width: 300px;
-  margin:auto
-}
-.card{
-  border: solid 3px black ;
-  border-radius: .5rem;
-  display:flex;
-  text-align: center;
-  padding: 4px;
+	font-family: "Acme", sans-serif;
+	text-align: center;
+	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
 }
 
-.button{
-  font-size: 1.3rem;
-  text-decoration:none;
-  padding: 6px 5px;
-  width: 100%;
-  display: block;
-  margin: 5px 0;
-  border-radius: .5rem;
-  color: whitesmoke;
-  border: none;
-  outline: none;
-  background-color: red;
+.card {
+	border: solid 3px black;
+	border-radius: 0.5rem;
+	display: flex;
+	text-align: center;
+	padding: 4px;
+	margin: 10px auto;
+	background-color: darkslategray;
+	height: 300px;
+	width: 300px;
+}
 
+.pure-button {
+	font-size: 1.3rem;
+	text-decoration: none;
+	padding: 6px 5px;
+	width: 100%;
+	display: block;
+	margin: 5px 0;
+	border-radius: 0.5rem;
+	color: whitesmoke;
+	border: none;
+	outline: none;
+	background-color: darkslategray;
 }
 
 .quote {
-  display: flex;
-  justify-content: center;
-  font-family: 'Euphoria Script', cursive;
-  font-size: 2rem;
-  margin:auto;
+	display: flex;
+	justify-content: center;
+	font-family: "Festive", cursive;
+	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
+	font-size: 3rem;
+	font-weight: bold;
+	margin: auto;
 }
+
 .form-cards {
-  font-family: 'Acme', sans-serif;
-  font-size: 1.3rem;
-  
-}
-.image{
- 
-  height: 250px;
-  display: flex;
-  margin:auto;
+	font-family: "Acme", sans-serif;
+	font-size: 1.3rem;
 }
 
-.hero{
-  font-family: 'Acme', sans-serif;
+.image {
+	width: 225px;
+	margin: auto;
+	border-radius: 0.5rem;
+}
 
+.hero {
+	font-family: "Acme", sans-serif;
+	text-shadow: 0 0 1em slategray, 0 0 0.2em darkslategray;
 }
 
 .map {
-  border: solid 3px black ;
-  border-radius: .5rem;
-  display:flex;
-  height: 600px;
-  margin:auto;
+	border: solid 3px black;
+	border-radius: 0.5rem;
+	display: flex;
+	height: 600px;
+	margin: auto;
+	padding: 4px;
+	background-color: darkslategray;
 }

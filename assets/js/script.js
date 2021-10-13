@@ -26,7 +26,7 @@ let tacos = [
 ];
 
 const RANGE = 20;
-const NUM_RESULTS = 30;
+const NUM_RESULTS = 5;
 const NUM_SEARCH_HISTORY = 8;
 let savedSearches = [];
 
@@ -102,22 +102,23 @@ let createMap = (data) => {
 	// Add static map api string to HTML img tag
 	mapImgEl = document.querySelector("#map");
 	mapImgEl.setAttribute("src", staticMapAPI);
-	mapImgEl.setAttribute("alt", "Map of taco locations near");
+	mapImgEl.setAttribute("alt", "Map of taco locations nearby");
+	mapImgEl.setAttribute("class", "map");
 	//TODO Error handling for API errors
 };
 
 // Create and display result cards
 let createCards = (data) => {
-	console.log("I got this far", data);
-	// for loop to create 5 cards
-	for (let i = 0; i < 5; i++) {
+	// for loop to create NUM_RESULTS cards
+	for (let i = 0; i < NUM_RESULTS; i++) {
 		let rName = data[i].restaurant_name;
 		let pRange = data[i].price_range;
 
 		// create a card
-		var newEl = document.createElement("a1");
-		newEl.classList = "card";
+		var newEl = document.createElement("div");
+		newEl.classList = "card pure-u-1-2 pure-u-md-1-1";
 		document.getElementById("card-container").appendChild(newEl);
+
 		// create a span element to hold restaurant name
 		let resName = document.createElement("span");
 		resName.classList = "form-cards";
@@ -137,8 +138,8 @@ let createCards = (data) => {
 		let img = document.createElement("img");
 		//const random = Math.floor(Math.random()* tacos.length);
 		//img.src = tacos[random]
-		img.src = tacos[0];
-		tacos.shift();
+		img.src = tacos[i];
+		// tacos.shift();
 
 		img.classList = "image";
 		//console.log(price_range);
@@ -160,7 +161,6 @@ let getTacoSpots = (lat, lng) => {
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
-
 				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
 				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
 
