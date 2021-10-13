@@ -1,16 +1,17 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-const RANGE = 20;
-const NUM_RESULTS = 5;
-const NUM_SEARCH_HISTORY = 8;
-const NUM_TACO_IMAGES = 19;
-let savedSearches = [];
+const RANGE = 5; // Distance for documenu search
+const NUM_RESULTS = 20; // Number of restaurant we request from API (max 30)
+const NUM_SEARCH_HISTORY = 8; // Number of searches to store in the search history
+const NUM_TACO_IMAGES = 19; // Number of taco#.jpgs stored in ./assets/images/
+
+let savedSearches = []; // variable to hold searches from localStorage
 
 // HTML Elements
 let tacoSearchFormEl = document.querySelector("#tacoSearchForm");
 let searchInputEl = document.querySelector("#input");
 let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
 
-// This flag designates whether using local test data or burning an API call
+// These flags designate whether using local test data or burning an API call
 let useDocumenuTestData = true;
 let useMapQuestTestData = true;
 
@@ -84,41 +85,59 @@ let createMap = (data) => {
 
 // Create and display result cards
 let createCards = (data) => {
+	// Process the amount of results preferred and possible.
+	let numResults = Math.min(NUM_RESULTS, data.length);
+
 	// for loop to create NUM_RESULTS cards
-	for (let i = 0; i < NUM_RESULTS; i++) {
+	for (let i = 0; i < numResults; i++) {
 		let rName = data[i].restaurant_name;
 		let pRange = data[i].price_range;
+		let rAddress = data[i].address.formatted;
+		let rPhone = data[i].restaurant_phone;
+		let rWeb = data[i].restaurant_website;
 
 		// create a card
 		var newEl = document.createElement("div");
 		newEl.classList = "card pure-u-1-2 pure-u-md-1-1 border";
 		document.getElementById("card-container").appendChild(newEl);
 
-		// create a span element to hold restaurant name
-		let resName = document.createElement("span");
+		// create and append an h4 element to hold restaurant name
+		let resName = document.createElement("h4");
 		resName.classList = "form-cards";
 		resName.textContent = rName;
-
-		//console.log(restaurant_name)
-		// append to card
 		newEl.appendChild(resName);
 
-		let price = document.createElement("span");
-		price.textContent = pRange;
-		//console.log(price_range);
+		// create and append icons to show relative price
+		let price = document.createElement("p");
+		let pIcon = "<i class='fas fa-dollar-sign'></i>";
+		let iconStr = pIcon;
+		for (let i = 0; i < pRange.length; i++) {
+			iconStr = iconStr + pIcon;
+		}
+		price.innerHTML = iconStr;
 		newEl.appendChild(price);
 
-		//create image element
+		// create and append the restaurant address
+		let resAddress = document.createElement("p");
+		resAddress.textContent = rAddress;
+		newEl.appendChild(resAddress);
 
+		// create and append the restaurant phone number
+		let resPhone = document.createElement("p");
+		resPhone.textContent = rPhone;
+		newEl.appendChild(resPhone);
+
+		// create and append the restaurant website
+		let resWeb = document.createElement("p");
+		resWeb.textContent = rAddress;
+		newEl.appendChild(resWeb);
+
+		//createand append a taco image
 		let img = document.createElement("img");
 		const random = Math.floor(Math.random() * NUM_TACO_IMAGES) + 1;
 		img.src = `./assets/images/taco${random}.jpg`;
 		img.alt = "Delicious tacos";
-		// img.src = tacos[i];
-		// tacos.shift();
-
 		img.classList = "image";
-		//console.log(price_range);
 		newEl.appendChild(img);
 	}
 };
