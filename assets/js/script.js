@@ -1,10 +1,11 @@
 /* TACO LOCATOR JAVASCRIPT */
 
-/* Global Variables */
+/* GLOBAL VARIABLES START */
 
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
 const RANGE = 20;
 const NUM_RESULTS = 30;
+const NUM_SEARCH_HISTORY = 8;
 let savedSearches = [];
 
 // HTML Elements
@@ -16,38 +17,52 @@ let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
 let useDocumenuTestData = true;
 let useMapQuestTestData = true;
 
-/* Event Handlers */
+/* GLOBAL VARIABLES END
+/* EVENT HANDLERS START */
 
+// Handle Searches
 let searchSubmitHandler = (event) => {
 	event.preventDefault();
 
+	// Get the user input
 	let location = searchInputEl.value.trim();
 
+	// Validate user input
 	if (location) {
+		// If valid, continue
 		getSearchCoords(location);
 	} else {
+		// In invalid, inform user
 		searchInputEl.setAttribute("placeholder", "PLEASE ENTER A LOCATION TO SEARCH FOR YUMMY TACOS");
 	}
 };
+// Create Event Listener for search form
 tacoSearchFormEl.addEventListener("submit", searchSubmitHandler);
 
+// Handle Search History
 let historyClickHandler = (event) => {
+	// Get the location from the search history item and continue
 	let location = event.target.getAttribute("data-search");
-	console.log(event.target.getAttribute("data-search"));
 	getSearchCoords(location);
 };
-
+// Create Event Listener for search history clicks
 searchHistoryDropdownEl.addEventListener("click", historyClickHandler);
-/* Main Functions */
+
+/* EVENT HANDLERS END */
+/* MAIN FUNCTIONS START */
 
 // Function to create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
-	let staticMapAPI;
+	// If testing
 	if (useMapQuestTestData) {
 		staticMapAPI = "./assets/images/Test Data Map";
 	} else {
+		// If not testing
+
+		let staticMapAPI;
 		// Create a string for locations query parameter of MapQuest API from Documenu results JSON
 		let locString = "";
+		// Loop through restaurants and append their lat and long to the locations query parameter
 		for (let i = 0; i < data.length; i++) {
 			locString = locString.concat(data[i].geo.lat, ",", data[i].geo.lon);
 			if (i < data.length - 1) {
@@ -68,16 +83,17 @@ let createMap = (data) => {
 
 // Documenu API call
 let getTacoSpots = (lat, lng) => {
-	// Check if testing or if doing API calls
+	// If testing
 	if (useDocumenuTestData) {
 		createMap(testDataChicago);
 	} else {
-		console.log(lat, lng);
+		// If not testing
 		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
+		// API Call
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
-				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
+				// "x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
 				"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
@@ -86,6 +102,7 @@ let getTacoSpots = (lat, lng) => {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((data) => {
+						// Create map from the returned data
 						createMap(data.data);
 						console.log("You burned an API call!");
 						console.log(data.data);
@@ -98,16 +115,22 @@ let getTacoSpots = (lat, lng) => {
 	}
 };
 
+// Save search history
 let saveSearch = (locationStr) => {
+	// Add location to the saved searches array
 	savedSearches.unshift(locationStr);
+	// Create a set so there aren't duplicates
 	savedSearches = [...new Set(savedSearches)];
 
-	while (savedSearches > 5) {
+	// Drop off the oldest searches
+	while (savedSearches > NUM_SEARCH_HISTORY) {
 		savedSearches.pop;
 	}
 
+	// Update UI
 	updateSearchHistoryElements();
 
+	// Update localStorage
 	localStorage.setItem("tacoSearches", JSON.stringify(savedSearches));
 };
 
@@ -117,39 +140,40 @@ let getSearchCoords = (loc) => {
 	searchInputEl.value = "";
 
 	if (useMapQuestTestData) {
+		// If testing
 		// Warning about fake data
 		alert("This is currently only pulling internal test data an not using an API call (those are expensive).");
-		console.log(testData);
 
+		// Nothing to send to Documenu API
 		getTacoSpots("", "");
+		// Add new location to search history
 		saveSearch(loc);
 	} else {
-		// API call to Mapquest to get latitude and longitude from generic place name
+		// If not testing
 		let latLngSearchApiUrl = `https://open.mapquestapi.com/geocoding/v1/address?key=pmTncUmE4WZvotxffzMXoDh0tdUGP9Vc&location=${loc}`;
+		// API call to Mapquest to get latitude and longitude from generic place name
 		fetch(latLngSearchApiUrl)
 			.then((resp1) => {
 				if (resp1.ok) {
 					resp1.json().then((geoData) => {
-						console.log("Geocode results:");
-						console.dir(geoData);
 						// Extract data from first result
 						let lat = geoData.results[0].locations[0].latLng.lat;
 						let lng = geoData.results[0].locations[0].latLng.lng;
 						let city = geoData.results[0].locations[0].adminArea5;
 						let state = geoData.results[0].locations[0].adminArea3;
-						let country = geoData.results[0].locations[0].adminArea1;
 
 						// Check that destination is specific enough to return a city, state and country identifier
-						if (!city || !state || !country) {
-							alert(
-								"Your destination search may be too broad. Please enter more specific location information for results."
-							);
+						if (!city || !state) {
+							// TODO: Get rid of alert and display something in the page
+							alert("Your search may be too broad. Please enter more specific location information for results.");
 						} else {
 							// Create a city, state, country string for display and search history purposes
-							let locationStr = `${city}, ${state} ${country}`;
+							let locationStr = `${city}, ${state}`;
 
-							// API call to Documenu using latitude and longitude
+							// Send latitude and longitude to Documenu API call
 							getTacoSpots(lat, lng);
+
+							// Add location to search history
 							saveSearch(locationStr);
 						}
 					});
@@ -157,6 +181,7 @@ let getSearchCoords = (loc) => {
 			})
 			.catch((error) => {
 				console.log(error);
+				// TODO: Move this alert to show in the card display div
 				alert(
 					"There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes."
 				);
@@ -164,8 +189,7 @@ let getSearchCoords = (loc) => {
 	}
 };
 
-/* Search History Functions Start */
-
+// Update Search History UI
 let updateSearchHistoryElements = () => {
 	// Clear previous search items
 	searchHistoryDropdownEl.innerHTML = "";
@@ -188,40 +212,17 @@ let updateSearchHistoryElements = () => {
 	}
 };
 
+// If there are searches in local storage, pull them into savedSearches
 let loadLocalStorage = () => {
-	// If there are searches in local storage, pull them into savedSearches
+	// Check localStorage and add to
 	let storedSearches = localStorage.getItem("tacoSearches");
 	if (storedSearches) {
 		savedSearches = JSON.parse(storedSearches);
 	}
 	updateSearchHistoryElements();
 };
-/* Search History Functions End */
 
+/* MAIN FUNCTIONS END */
+
+// initial page load
 loadLocalStorage();
-// getSearchCoords(destination);
-
-// Make it so searches save to local storage
-
-function myFunction() {
-	// Declare variables
-	var input, filter, ul, li, a, i, txtValue;
-	input = document.getElementById("myInput");
-	filter = input.value.toUpperCase();
-	ul = document.getElementById("myUL");
-	li = ul.getElementsByTagName("li");
-
-	// Loop through all list items, and hide those who don't match the search query
-	for (i = 0; i < li.length; i++) {
-		a = li[i].getElementsByTagName("a")[0];
-		txtValue = a.textContent || a.innerText;
-		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			li[i].style.display = "";
-		} else {
-			li[i].style.display = "none";
-		}
-	}
-}
-
-// Make it so search history tab opens a dropdown list
-// Make it so dropdown list is populated by localStorage
