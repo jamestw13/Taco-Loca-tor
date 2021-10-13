@@ -10,6 +10,7 @@ let savedSearches = []; // variable to hold searches from localStorage
 let tacoSearchFormEl = document.querySelector("#tacoSearchForm");
 let searchInputEl = document.querySelector("#input");
 let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
+let resultsHeadlineEl = document.querySelector("#headline");
 
 // These flags designate whether using local test data or burning an API call
 let useDocumenuTestData = true;
@@ -98,7 +99,7 @@ let createCards = (data) => {
 
 		// create a card
 		var newEl = document.createElement("div");
-		newEl.classList = "card pure-u-1-2 pure-u-md-1-1 border";
+		newEl.classList = "card pure-u-10-24 border";
 		document.getElementById("card-container").appendChild(newEl);
 
 		// create and append an h4 element to hold restaurant name
@@ -110,7 +111,7 @@ let createCards = (data) => {
 		// create and append icons to show relative price
 		let price = document.createElement("p");
 		let pIcon = "<i class='fas fa-dollar-sign'></i>";
-		let iconStr = pIcon;
+		let iconStr = "Price: " + pIcon;
 		for (let i = 0; i < pRange.length; i++) {
 			iconStr = iconStr + pIcon;
 		}
@@ -128,8 +129,8 @@ let createCards = (data) => {
 		newEl.appendChild(resPhone);
 
 		// create and append the restaurant website
-		let resWeb = document.createElement("p");
-		resWeb.textContent = rAddress;
+		let resWeb = document.createElement("a");
+		resWeb.textContent = rWeb;
 		newEl.appendChild(resWeb);
 
 		//createand append a taco image
@@ -187,6 +188,9 @@ let getTacoSpots = (lat, lng) => {
 let saveSearch = (locationStr) => {
 	locationStr = locationStr.toUpperCase();
 	// Add location to the saved searches array
+
+	// Display location in headline
+	resultsHeadlineEl.innerHTML = `<h3>Here are tacos near: ${locationStr}</h3>`;
 	savedSearches.unshift(locationStr);
 	// Create a set so there aren't duplicates
 	savedSearches = [...new Set(savedSearches)];
@@ -207,11 +211,10 @@ let saveSearch = (locationStr) => {
 let getSearchCoords = (loc) => {
 	// Clear value from input field
 	searchInputEl.value = "";
+	resultsHeadlineEl.innerHTML = "";
 
 	if (useMapQuestTestData) {
 		// If testing
-		// Warning about fake data
-		alert("This is currently only pulling internal test data an not using an API call (those are expensive).");
 
 		// Nothing to send to Documenu API
 		getTacoSpots("", "");

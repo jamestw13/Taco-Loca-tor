@@ -43,25 +43,28 @@
 			<form action="" id="tacoSearchForm" class="pure-form pure-form-stacked">
 				<fieldset>
 					<input type="text" id="input" class="pure-input-1" placeholder="From where to find a Taco?" />
-					<button class="pure-button pure-button-primary border">Show me tacos near me!</button>
+					<div class="pure-g">
+						<button class="pure-u-1-5 pure-button pure-button-primary border">Show me tacos near me!</button>
+						<div class="pure-u-1-5 pure-menu pure-menu-horizontal">
+							<ul class="pure-menu-list">
+								<!-- Search History Dropdown -->
+								<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+									<h3 class="pure-menu-link">Search History</h3>
+									<ul id="searchDropdown" class="pure-menu-children"></ul>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</fieldset>
 			</form>
 			<!-- Navbar -->
-			<nav>
-				<div class="pure-menu pure-menu-horizontal">
-					<ul class="pure-menu-list">
-						<!-- Search History Dropdown -->
-						<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-							<h3 class="pure-menu-link">Search History</h3>
-							<ul id="searchDropdown" class="pure-menu-children"></ul>
-						</li>
-					</ul>
-				</div>
-			</nav>
 		</header>
 		<!-- RESULT SECTION-->
+		<div id="headline" class="border"></div>
 		<div class="pure-g">
-			<div id="card-container" class="pure-u-1-2 pure-g"></div>
+			<div class="pure-u-1-2">
+				<div id="card-container" class="pure-g"></div>
+			</div>
 			<div class="pure-u-1-2">
 				<img id="map" />
 			</div>
