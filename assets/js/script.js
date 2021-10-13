@@ -1,6 +1,6 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
 const RANGE = 5; // Distance for documenu search
-const NUM_RESULTS = 20; // Number of restaurant we request from API (max 30)
+const NUM_RESULTS = 10; // Number of restaurant we request from API (max 30)
 const NUM_SEARCH_HISTORY = 8; // Number of searches to store in the search history
 const NUM_TACO_IMAGES = 19; // Number of taco#.jpgs stored in ./assets/images/
 
@@ -52,13 +52,14 @@ searchHistoryDropdownEl.addEventListener("click", historyClickHandler);
 
 // Create static map from MapQuest API and put in HTML. Takes in restaurant results array from Documenu.
 let createMap = (data) => {
+	let staticMapAPI = "";
+
 	// If testing
 	if (useMapQuestTestData) {
 		staticMapAPI = "./assets/images/Test Data Map";
 	} else {
 		// If not testing
 
-		let staticMapAPI;
 		// Create a string for locations query parameter of MapQuest API from Documenu results JSON
 		let locString = "";
 
@@ -81,7 +82,6 @@ let createMap = (data) => {
 	mapImgEl.setAttribute("src", staticMapAPI);
 	mapImgEl.setAttribute("alt", "Map of taco locations nearby");
 	mapImgEl.setAttribute("class", "map border");
-	//TODO Error handling for API errors
 };
 
 // Create and display result cards
@@ -91,6 +91,7 @@ let createCards = (data) => {
 
 	// for loop to create NUM_RESULTS cards
 	for (let i = 0; i < numResults; i++) {
+		// Pull restaurant information from object
 		let rName = data[i].restaurant_name;
 		let pRange = data[i].price_range;
 		let rAddress = data[i].address.formatted;
@@ -104,7 +105,6 @@ let createCards = (data) => {
 
 		// create and append an h4 element to hold restaurant name
 		let resName = document.createElement("h4");
-		resName.classList = "form-cards";
 		resName.textContent = rName;
 		newEl.appendChild(resName);
 
@@ -130,7 +130,9 @@ let createCards = (data) => {
 
 		// create and append the restaurant website
 		let resWeb = document.createElement("a");
+		resWeb.href = rWeb;
 		resWeb.textContent = rWeb;
+
 		newEl.appendChild(resWeb);
 
 		//createand append a taco image
@@ -158,11 +160,8 @@ let getTacoSpots = (lat, lng) => {
 			method: "GET",
 			headers: {
 				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
-				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
-
-				// "x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
 				//"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
-
+				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
@@ -237,8 +236,9 @@ let getSearchCoords = (loc) => {
 
 						// Check that destination is specific enough to return a city, state and country identifier
 						if (!city || !state) {
-							// TODO: Get rid of alert and display something in the page
-							alert("Your search may be too broad. Please enter more specific location information for results.");
+							// If not display a message in the results headline
+							resultsHeadlineEl.innerHTML =
+								"Your search may be too broad. Please enter more specific location information for results.";
 						} else {
 							// Create a city, state, country string for display and search history purposes
 							let locationStr = `${city}, ${state}`;
@@ -254,10 +254,8 @@ let getSearchCoords = (loc) => {
 			})
 			.catch((error) => {
 				console.log(error);
-				// TODO: Move this alert to show in the card display div
-				alert(
-					"There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes."
-				);
+				resultsHeadlineEl.innerHTML =
+					"There was an issue with getting your information. The data service might be down. Please check your internet connection and try again in a few minutes.";
 			});
 	}
 };
