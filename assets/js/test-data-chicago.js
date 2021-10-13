@@ -1277,6 +1277,11 @@ let testDataChicago = [
 		],
 		last_updated: "2021-01-05T07:42:48.875Z",
 	},
+
+	
+	geo: {
+		lat: 41.882766,
+		lon: -87.63670===
 	{
 		restaurant_name: "Taco Fresco",
 		restaurant_phone: "(312) 920-0077",

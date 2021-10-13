@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TACO-LOCA-TOR</title>
   
+    <!-- GoogleFont -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+	<!-- Foundation 6 CSS CDN -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous" />
+  -->
+
+	<title>TACO-LOCA-TOR</title>
   <link
   rel="stylesheet"
   href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
@@ -16,17 +26,16 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-<body>
-  <header>
+<body class="body" style="background-image: url('assets/images/background2.jpg'); background-size: 100%;">
+  <header class="hero">
     
     <h1 >TACO-LOCATOR</h1>
+    <h2 class="quote small-6 cell">Live everyday like it's Taco Tuesday</h2>
     <form action="submit" id="tacoSearchForm" class="pure-form pure-form-stacked">
       <fieldset>
         <legend>Where are you?</legend>
         <input type="text" id="input" class="pure-input-1" placeholder="From where to find a Taco?" />
         <button class="pure-button pure-button-primary">FEED ME TACOS NOW</button>
-        
-        <!-- Dropdown Structure -->
         
         <nav>
           <div class="pure-menu pure-menu-horizontal">
@@ -44,6 +53,14 @@
         </nav>
       </fieldset>
     </form>
+    		<div class="form-cards grid-x grid-padding-x">
+			<form id="locale-form" class="form small-6 cell">
+				<label class="form-label" for="locale">Where are you?</label>
+				<input name="locale" id="locale" type="text" autofocus="true" class="form-input" />
+				<button type="submit" class="button">FIND TACOS</button>
+				<h4 class="rest-cards" id="rest-cards">Restaurants</h4>
+			</form>
+</div>
     </div>
 </header>
 
@@ -55,7 +72,7 @@
 </div>
 <footer></footer>
 
-<script src="./assets/js/test-data-chicago.js"></script>
+<!-- <script src="./assets/js/test-data-chicago.js"></script> -->
 <script src="./assets/js/test-data.js"></script>
 <script src="./assets/js/script.js"></script>
 </body>
