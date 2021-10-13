@@ -1,6 +1,8 @@
-/* TACO LOCATOR JAVASCRIPT */
-
-/* GLOBAL VARIABLES START */
+// Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
+//let destination = document.getElementById("locale").value;
+//console.log(destination);
+const RANGE = 20;
+const NUM_RESULTS = 20;
 
 let tacos = [
 	"assets/images/taco1.jpg",
