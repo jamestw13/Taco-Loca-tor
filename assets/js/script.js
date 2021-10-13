@@ -111,7 +111,7 @@ let createCards = (data) => {
 		//create image element
 
 		let img = document.createElement("img");
-		const random = Math.floor(Math.random() * NUM_TACO_IMAGES);
+		const random = Math.floor(Math.random() * NUM_TACO_IMAGES) + 1;
 		img.src = `./assets/images/taco${random}.jpg`;
 		img.alt = "Delicious tacos";
 		// img.src = tacos[i];

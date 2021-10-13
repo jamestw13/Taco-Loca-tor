@@ -44,8 +44,10 @@ h3 {
 	background-color: var(--green);
 }
 
-#nav {
-	/* justify-content: right; */
+nav {
+	display: flex;
+	justify-content: flex-end;
+	background-color: var(--brown);
 }
 
 .border {
@@ -73,7 +75,7 @@ h3 {
 	color: whitesmoke;
 	border: none;
 	outline: none;
-	background-color: darkslategray;
+	background-color: var(--yellow);
 }
 
 .form-cards {

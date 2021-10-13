@@ -34,11 +34,11 @@
 			<form action="" id="tacoSearchForm" class="pure-form pure-form-stacked">
 				<fieldset>
 					<input type="text" id="input" class="pure-input-1" placeholder="From where to find a Taco?" />
-					<button class="pure-button pure-button-primary">Show me tacos near me!</button>
+					<button class="pure-button pure-button-primary border">Show me tacos near me!</button>
 				</fieldset>
 			</form>
 			<!-- Navbar -->
-			<div id="nav">
+			<nav>
 				<div class="pure-menu pure-menu-horizontal">
 					<ul class="pure-menu-list">
 						<!-- Search History Dropdown -->
@@ -46,37 +46,9 @@
 							<h3 class="pure-menu-link">Search History</h3>
 							<ul id="searchDropdown" class="pure-menu-children"></ul>
 						</li>
-
-						<!-- Test Mode Dropdown -->
-						<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-							<h3 id="menuLink1" class="pure-menu-link"></h3>
-							<ul id="modeDropdown" class="pure-menu-children">
-								<!-- Mapquest mode -->
-								<li id="mapquestData" class="pure-menu-item pure-menu-allow-hover">
-									<label for="mapquestTest" class="pure-radio">
-										<input type="radio" id="mapquestTest" name="mapquestTest" value="test" checked="" /> MapQuest test
-										data
-									</label>
-									<label for="mapquestCall" class="pure-radio">
-										<input type="radio" id="mapquestCall" name="mapquestTest" value="live" /> API calls
-									</label>
-								</li>
-
-								<!-- Documenu Mode -->
-								<li id="documenutData" class="pure-menu-item pure-menu-allow-hover">
-									<label for="documenuTest" class="pure-radio">
-										<input type="radio" id="documenuTest" name="documenuTest" value="test" checked="" />
-										Documenu test data
-									</label>
-									<label for="documenuCall" class="pure-radio">
-										<input type="radio" id="documenuCall" name="documenuTest" value="live" /> API calls
-									</label>
-								</li>
-							</ul>
-						</li>
 					</ul>
 				</div>
-			</div>
+			</nav>
 		</header>
 		<!-- RESULT SECTION-->
 		<div class="pure-g">
