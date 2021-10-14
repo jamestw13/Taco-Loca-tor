@@ -11,6 +11,7 @@ let tacoSearchFormEl = document.querySelector("#tacoSearchForm");
 let searchInputEl = document.querySelector("#input");
 let searchHistoryDropdownEl = document.querySelector("#searchDropdown");
 let resultsHeadlineEl = document.querySelector("#headline");
+let cardContainerEl = document.querySelector("#card-container");
 
 // These flags designate whether using local test data or burning an API call
 let useDocumenuTestData = true;
@@ -100,8 +101,8 @@ let createCards = (data) => {
 
 		// create a card
 		var newEl = document.createElement("div");
-		newEl.classList = "card-u-1-1 card pure-u-md-11-24 border";
-		document.getElementById("card-container").appendChild(newEl);
+		newEl.classList = "card pure-u-md-10-24 border";
+		cardContainerEl.appendChild(newEl);
 
 		// create and append an h4 element to hold restaurant name
 		let resName = document.createElement("h4");
@@ -135,7 +136,7 @@ let createCards = (data) => {
 
 		newEl.appendChild(resWeb);
 
-		//createand append a taco image
+		//create and append a taco image
 		let img = document.createElement("img");
 		const random = Math.floor(Math.random() * NUM_TACO_IMAGES) + 1;
 		img.src = `./assets/images/taco${random}.jpg`;
@@ -159,9 +160,11 @@ let getTacoSpots = (lat, lng) => {
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
-				// "a7687a16eb8ef8a7cc7fce5518caad34" is burned. Should be ready by 10/15
-				//"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca",
-				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b",
+				//"x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34", //TJ's Key 1 - Burned. Should be ready by 10/15
+				//"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca", // TJ's Key 2
+				//"x-api-key": "354b61dc224075c82022d45737745317", // Melvin's Key
+				//"x-api-key": "5d3b5e720097d9586cf58e94be339261", // Cristian's Key
+				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b", // Victor's Key
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
@@ -190,6 +193,8 @@ let saveSearch = (locationStr) => {
 
 	// Display location in headline
 	resultsHeadlineEl.innerHTML = `<h3>Here are tacos near: ${locationStr}</h3>`;
+
+	// Add location to the front of the search history array
 	savedSearches.unshift(locationStr);
 	// Create a set so there aren't duplicates
 	savedSearches = [...new Set(savedSearches)];
@@ -208,15 +213,17 @@ let saveSearch = (locationStr) => {
 
 // Make nested API calls to get weather data
 let getSearchCoords = (loc) => {
-	// Clear value from input field
+	// Reset element values
 	searchInputEl.value = "";
 	resultsHeadlineEl.innerHTML = "";
+	cardContainerEl.innerHTML = "";
 
 	if (useMapQuestTestData) {
 		// If testing
 
-		// Nothing to send to Documenu API
+		// Send blank to Documenu API
 		getTacoSpots("", "");
+
 		// Add new location to search history
 		saveSearch(loc);
 	} else {

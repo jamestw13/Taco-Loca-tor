@@ -16,6 +16,9 @@ body {
 	background-color: var(--tertiary);
 }
 
+.pure-g {
+	letter-spacing: normal;
+}
 .pure-g [class*="pure-u"] {
 	font-family: "Acme", sans-serif;
 }
@@ -88,12 +91,12 @@ body {
 	font-size: 1.3rem;
 	text-decoration: none;
 	padding: 6px;
-	width: 100%;
-	display: block;
+	width: 95%;
+	display: inline-block;
 	margin: 5px;
 	border-radius: 0.5rem;
 	color: var(--white);
-	border: none;
+	border: 1px solid var(--white);
 	outline: none;
 	background-color: var(--secondary);
 }
@@ -114,16 +117,22 @@ body {
 	text-align: center;
 }
 
+.fa-utensils {
+	margin: 10px;
+	font-size: 24px;
+	color: var(--red);
+}
+
 .card {
 	display: flex;
 	flex-direction: column;
-	padding: 4px;
-	margin: 10px auto;
+	padding: 10px;
+	margin: 5px 20px;
 	background-color: var(--primary);
 }
 
 .card h4 {
-	display: block;
+	margin-top: 7px;
 	text-align: center;
 	margin-bottom: 5px;
 	font-size: 1.4rem;
@@ -135,6 +144,11 @@ body {
 a {
 	text-align: left;
 	margin: 2px;
+	word-wrap: break-word;
+}
+
+.card a {
+	color: var(--white);
 	text-decoration: none;
 }
 
@@ -142,12 +156,13 @@ a {
 	width: 95%;
 	margin: auto;
 	border-radius: 0.5rem;
+	border: 2px solid var(--secondary);
 }
 
 .map {
 	display: block;
 	max-width: 90%;
-	margin: auto;
+	margin: 5px auto;
 	background-color: var(--primary);
 }
 
