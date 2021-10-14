@@ -1,5 +1,5 @@
 // Constants for Documenu testing. Returns up to 30 results within 20 miles of Madison, WI city center
-const RANGE = 5; // Distance for documenu search
+const RANGE = 20; // Distance for documenu search
 const NUM_RESULTS = 10; // Number of restaurant we request from API (max 30)
 const NUM_SEARCH_HISTORY = 8; // Number of searches to store in the search history
 const NUM_TACO_IMAGES = 19; // Number of taco#.jpgs stored in ./assets/images/
@@ -65,12 +65,12 @@ let createMap = (data) => {
 		let locString = "";
 
 		// Loop through restaurants and append their lat and long to the locations query parameter
-		for (let i = 0; i < data.length; i++) {
+		let numResults = Math.min(NUM_RESULTS, data.length);
+		for (let i = 0; i < numResults; i++) {
 			locString = locString.concat(data[i].geo.lat, ",", data[i].geo.lon);
-			console.log(locString);
+
 			if (i < data.length - 1) {
 				locString = locString.concat("||");
-				console.log(locString);
 			}
 		}
 
@@ -152,19 +152,19 @@ let getTacoSpots = (lat, lng) => {
 	if (useDocumenuTestData) {
 		createCards(testData);
 		createMap(testData);
-		console.log(testData);
 	} else {
 		// If not testing
 		let documenuAPI = `https://documenu.p.rapidapi.com/restaurants/search/geo?lat=${lat}&lon=${lng}&distance=${RANGE}&size=${NUM_RESULTS}&page=2&fullmenu=true&cuisine=Mexican`;
+		console.log(documenuAPI);
 		// API Call
 		fetch(documenuAPI, {
 			method: "GET",
 			headers: {
 				//"x-api-key": "a7687a16eb8ef8a7cc7fce5518caad34", //TJ's Key 1 - Burned. Should be ready by 10/15
-				//"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca", // TJ's Key 2
+				"x-api-key": "0d2c61c6b7a6aa25b5a19d6563af21ca", // TJ's Key 2
 				//"x-api-key": "354b61dc224075c82022d45737745317", // Melvin's Key
 				//"x-api-key": "5d3b5e720097d9586cf58e94be339261", // Cristian's Key
-				"x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b", // Victor's Key
+				// "x-api-key": "4e6e62be3a4e1bd49904f6b7765e208b", // Victor's Key
 				"x-rapidapi-host": "documenu.p.rapidapi.com",
 				"x-rapidapi-key": "ef5d4d8b3amshd77a5cbfa217b59p18252bjsn98a33ecd6cc4",
 			},
@@ -172,11 +172,17 @@ let getTacoSpots = (lat, lng) => {
 			.then((response) => {
 				if (response.ok) {
 					response.json().then((data) => {
-						// Create map from the returned data
-						createMap(data.data);
-						createCards(data.data);
+						console.log("getTacoSpots", data);
 						console.log("You burned an API call!");
-						console.log(data.data);
+						if (!data.totalResults) {
+							console.log("data is empty");
+							resultsHeadlineEl.innerHTML =
+								"Could not find a Taco place near there, so it's probably not worth being there.";
+						} else {
+							// Create map from the returned data
+							createMap(data.data);
+							createCards(data.data);
+						}
 					});
 				}
 			})
@@ -235,7 +241,7 @@ let getSearchCoords = (loc) => {
 				if (resp1.ok) {
 					resp1.json().then((geoData) => {
 						// Extract data from first result
-						console.log(geoData);
+						console.log("getSearchCoords", geoData);
 						let lat = geoData.results[0].locations[0].latLng.lat;
 						let lng = geoData.results[0].locations[0].latLng.lng;
 						let city = geoData.results[0].locations[0].adminArea5;
@@ -248,13 +254,13 @@ let getSearchCoords = (loc) => {
 								"Your search may be too broad. Please enter more specific location information for results.";
 						} else {
 							// Create a city, state, country string for display and search history purposes
-							let locationStr = `${city}, ${state}`;
+							let locationStr = loc;
 
 							// Send latitude and longitude to Documenu API call
 							getTacoSpots(lat, lng);
 
 							// Add location to search history
-							saveSearch(locationStr);
+							saveSearch(loc);
 						}
 					});
 				}
