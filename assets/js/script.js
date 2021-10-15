@@ -14,8 +14,8 @@ let resultsHeadlineEl = document.querySelector("#headline");
 let cardContainerEl = document.querySelector("#card-container");
 
 // These flags designate whether using local test data or burning an API call
-let useDocumenuTestData = true;
-let useMapQuestTestData = true;
+let useDocumenuTestData = false;
+let useMapQuestTestData = false;
 
 /* GLOBAL VARIABLES END
 /* EVENT HANDLERS START */
