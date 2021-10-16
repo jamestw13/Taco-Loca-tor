@@ -23,7 +23,7 @@ let useMapQuestTestData = false;
 // Handle Searches
 let searchSubmitHandler = (event) => {
   event.preventDefault();
-
+	clearMap();
   // Get the user input
   let location = searchInputEl.value.trim();
 
@@ -86,6 +86,7 @@ let createMap = (data) => {
   mapImgEl.setAttribute("src", staticMapAPI);
   mapImgEl.setAttribute("alt", "Map of taco locations nearby");
   mapImgEl.setAttribute("class", "map border");
+	mapImgEl.setAttribute("id","#staticMap")
   mapEl.appendChild(mapImgEl);
 };
 
@@ -253,9 +254,6 @@ let getSearchCoords = (loc) => {
 
             // Check that destination is specific enough to return a city, state and country identifier
             if (!city || !state) {
-							// Remove the static map when search is invalid
-              let reMap = document.getElementById("map");
-              reMap.removeChild(mapImgEl);
               // If not display a message in the results headline
               resultsHeadlineEl.innerHTML =
                 "Your search may be too broad. Please enter more specific location information for results.";
@@ -312,6 +310,11 @@ let loadLocalStorage = () => {
   }
   updateSearchHistoryElements();
 };
+
+let clearMap = () => {
+	  // Remove the static map when search is invalid
+		mapEl.innerHTML="";
+}
 
 /* MAIN FUNCTIONS END */
 
